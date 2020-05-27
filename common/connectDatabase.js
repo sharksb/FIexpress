@@ -2,10 +2,10 @@ let mysqlHost = {
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'lttest'
+    database: 'internetfinance'
 }
 
-let mongodbHost = 'mongodb://localhost/lttttest'
+let mongodbHost = 'mongodb://localhost/iternetfi'
 
 module.exports = {
     mysqlHost,
