@@ -46,7 +46,7 @@ obtainOneStudentAnswerRouter.get('/test/obtainOneStudentAnswer', (req, res) => {
             console.log(err)
         } else {
             // 找出某个测试
-            // console.log(result)
+            console.log(result)
             let test = result[0].tests.filter((item, index) => {
                 return item.testName == testName
             })
@@ -62,6 +62,7 @@ obtainOneStudentAnswerRouter.get('/test/obtainOneStudentAnswer', (req, res) => {
                 let countScore = 0
                 let count = 0
                 for(question of test[0].questions){
+                    console.log('test',test[0])
                     // console.log(question.correctOption)
                     // console.log(question.yourAnswer)
                     let yourans = null
@@ -69,6 +70,8 @@ obtainOneStudentAnswerRouter.get('/test/obtainOneStudentAnswer', (req, res) => {
                     let corrcet = false
                    for(yourans of question.yourAnswer){
                        for(corrans of question.correctOption){
+                           console.log('your',yourans)
+                           console.log('correct',corrans)
                            if(yourans == corrans){
                             corrcet = true
                               break 

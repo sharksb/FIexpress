@@ -36,14 +36,13 @@ obtainOneTestRouter.get('/test/obtainOneTest', (req, res) => {
                 message:"测试不存在"
             })
         } else {
-            console.log('res',result)
+            // console.log('res',result)
             if(result.length == 0){
                 res.send({
                     code:1,
                     message:"测试不存在"
                 })
             }else {
-                console.log(result[0].questions)
                 let testInfo = null
                 let questions = result[0].questions
                 let testName = result[0].testName

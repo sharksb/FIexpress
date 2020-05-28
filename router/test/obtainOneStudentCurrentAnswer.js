@@ -46,7 +46,7 @@ obtainOneStudentCurrentAnswerRouter.get('/test/obtainOneStudentCurrentAnswer', (
             console.log(err)
         } else {
             // 找出某个测试
-            console.log('result', result[0].tests)
+            // console.log('result', result[0].tests)
             let test = result[0].tests.filter((item, index) => {
                 return item.testName == testName
             })
@@ -75,11 +75,11 @@ obtainOneStudentCurrentAnswerRouter.get('/test/obtainOneStudentCurrentAnswer', (
                         }
                     }
                     if (corrcet) {
-                        console.log('que',question)
+                        // console.log('que',question)
                         countScore += question.srcore
                         count++;
                     }
-                    console.log('con',countScore)
+                    // console.log('con',countScore)
 
                 }
                 let ranking = (count / test[0].questions.length * 100)
@@ -93,8 +93,8 @@ obtainOneStudentCurrentAnswerRouter.get('/test/obtainOneStudentCurrentAnswer', (
                     }
                 })
 
-                test[0].countScore = countScore
-                console.log(test[0])
+                // test[0].countScore = countScore
+                // console.log(test[0])
                 TestStudentAnswerCurrent.update({
                     idCard: idCard
                 }, {
@@ -103,7 +103,7 @@ obtainOneStudentCurrentAnswerRouter.get('/test/obtainOneStudentCurrentAnswer', (
                     }
                 },(err,result)=>{
                     if(err) console.log(err)
-                    console.log(result)
+                    // console.log(result)
                 }
                 )
             }

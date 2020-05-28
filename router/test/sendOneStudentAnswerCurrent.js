@@ -38,7 +38,7 @@ sendOneStudentAnswerCurrentRouter.post('/test/sendOneStudentAnswerCurrent', (req
 
     let questions = dataInfo.questions
 
-
+     console.log('传输',questions)
     // 某个学生某次测试后的内容
     // 数据库插入数据
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -47,7 +47,7 @@ sendOneStudentAnswerCurrentRouter.post('/test/sendOneStudentAnswerCurrent', (req
           testName: testName
         },(err,result)=>{
         if(err){
-            console.log(err)
+            // console.log(err)
             res.send({
                 code:1,
                 message:'无此测试'
@@ -57,7 +57,6 @@ sendOneStudentAnswerCurrentRouter.post('/test/sendOneStudentAnswerCurrent', (req
                 questions[index].correctOption = result[0].questions[index].correctOption
                 questions[index].srcore = result[0].questions[index].score
             }
-            console.log(questions)
             let testInfor = {
                 testName:testName,
                 questions:questions,
@@ -68,7 +67,7 @@ sendOneStudentAnswerCurrentRouter.post('/test/sendOneStudentAnswerCurrent', (req
                 idCard: idCard
             }, {
                 $set: {
-                    tests: testInfor,
+                    "tests": testInfor,
                 }
             }, function (err, result) {
                 if (err) {

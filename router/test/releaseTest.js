@@ -59,7 +59,7 @@ releaseTestRouter.post('/test/realeaseTest', bodyParser.json(),(req, res) => {
                 message:"测试名已存在"
             })
         }else{
-            console.log(result)
+            // console.log(result)
             connection.query(`INSERT INTO test(testName,startTime,endTime,time) VALUES(${JSON.stringify(sqlInfo.testName)},${JSON.stringify(sqlInfo.startTime)},${JSON.stringify(sqlInfo.endTime)},${JSON.stringify(sqlInfo.time)})`, function (error, results, fields) {
                 if (error) {
                     console.log('sql', error)
@@ -68,7 +68,7 @@ releaseTestRouter.post('/test/realeaseTest', bodyParser.json(),(req, res) => {
                         message:"测试名已存在"
                     })
                 } else {
-                    console.log(results)
+                    // console.log(results)
                     res.send({
                         code:2,
                         message:"发布成功",

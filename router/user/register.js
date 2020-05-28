@@ -79,9 +79,7 @@ registerRouter.post('/user/register', (req, res) => {
                             // 测试表注册
                             new TestStudentsAnswer({
                                 idCard: idCard,
-                                tests: [{
-                                    testName:''
-                                }]
+                                tests: []
                             }).save((err, result) => {
                                 if (err) {
                                     console.log(err)
