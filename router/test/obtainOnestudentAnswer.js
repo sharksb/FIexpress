@@ -40,18 +40,14 @@ obtainOneStudentAnswerRouter.get('/test/obtainOneStudentAnswer', (req, res) => {
     db.on('error', console.error.bind(console, 'connection error:'));
     // console.log(idCard)
     TestStudentsAnswer.find({
-        idCard:idCard
+        idCard: idCard
     }, (err, result) => {
         if (err) {
             console.log(err)
         } else {
-            // 找出某个测试
-            console.log(result)
             let test = result[0].tests.filter((item, index) => {
                 return item.testName == testName
             })
-        //    console.log(test[0].questions)
-
             if (test.length == 0) {
                 res.send({
                     code: 1,
@@ -61,45 +57,58 @@ obtainOneStudentAnswerRouter.get('/test/obtainOneStudentAnswer', (req, res) => {
                 let question = null
                 let countScore = 0
                 let count = 0
-                for(question of test[0].questions){
-                    console.log('test',test[0])
-                    // console.log(question.correctOption)
-                    // console.log(question.yourAnswer)
+                for (question of test[0].questions) {
                     let yourans = null
                     let corrans = null
                     let corrcet = false
-                   for(yourans of question.yourAnswer){
-                       for(corrans of question.correctOption){
-                           console.log('your',yourans)
-                           console.log('correct',corrans)
-                           if(yourans == corrans){
-                            corrcet = true
-                              break 
-                           }else{
+                    if (question.correctOption.length == 1) {
+                        // 单选，判断
+                        for (yourans of question.yourAnswer) {
+                            for (corrans of question.correctOption) {
+                                if (yourans == corrans) {
+                                    corrcet = true
+                                    break
+                                } else {
+                                    corrcet = false
+                                }
+                            }
+                        }
+                    }else{
+                        if(question.correctOption.length == question.yourAnswer.length){
+                            for(corrans of question.correctOption){
+                                let isEquals = question.yourAnswer.some((item)=>{
+                                   return item == corrans
+                                })
+                                if(isEquals==false){
+                                    corrcet = isEquals
+                                    break
+                                }else {
+                                    corrcet = true
+                                }
+                               }
+                        }else{
                             corrcet = false
-                           }
-                       }
-                   }
-                    if(corrcet){
-                        console.log("相等")
+                        }
+
+                    }
+                    // 判断
+                    if (corrcet) {
                         countScore += question.srcore
                         count++;
-                        console.log('1',question)
-                        console.log('1',question.srcore)
                     }
-                    
+
                 }
-                let ranking =  (count / test[0].questions.length*100)
+                let ranking = (count / test[0].questions.length * 100)
                 res.send({
                     code: 2,
                     mesage: "已测试",
                     data: test[0],
-                    rank:{
-                        countScore:countScore,
-                        ranking:ranking
+                    rank: {
+                        countScore: countScore,
+                        ranking: ranking
                     }
                 })
-            }
+            }//
         }
     })
 })

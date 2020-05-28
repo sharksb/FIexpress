@@ -64,22 +64,40 @@ obtainOneStudentCurrentAnswerRouter.get('/test/obtainOneStudentCurrentAnswer', (
                     let yourans = null
                     let corrans = null
                     let corrcet = false
-                    for (yourans of question.yourAnswer) {
-                        for (corrans of question.correctOption) {
-                            if (yourans == corrans) {
-                                corrcet = true
-                                break
-                            } else {
-                                corrcet = false
+                    if (question.correctOption.length == 1) {
+                        // 单选，判断
+                        for (yourans of question.yourAnswer) {
+                            for (corrans of question.correctOption) {
+                                if (yourans == corrans) {
+                                    corrcet = true
+                                    break
+                                } else {
+                                    corrcet = false
+                                }
                             }
                         }
+                    }else{
+                        if(question.correctOption.length == question.yourAnswer.length){
+                            for(corrans of question.correctOption){
+                                let isEquals = question.yourAnswer.some((item)=>{
+                                   return item == corrans
+                                })
+                                if(isEquals==false){
+                                    corrcet = isEquals
+                                    break
+                                }else {
+                                    corrcet = true
+                                }
+                               }
+                        }else{
+                            corrcet = false
+                        }
+
                     }
                     if (corrcet) {
-                        // console.log('que',question)
                         countScore += question.srcore
                         count++;
                     }
-                    // console.log('con',countScore)
 
                 }
                 let ranking = (count / test[0].questions.length * 100)
@@ -106,7 +124,7 @@ obtainOneStudentCurrentAnswerRouter.get('/test/obtainOneStudentCurrentAnswer', (
                     // console.log(result)
                 }
                 )
-            }
+            }//
         }
     })
 })
